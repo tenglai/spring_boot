@@ -3,6 +3,8 @@ const router = new Router();
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const tools = require('../../config/tools');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
 
 // 引入User
 const User = require('../../models/User');
@@ -75,8 +77,11 @@ router.post('/login', async ctx => {
     // 校验通过
     if (result) {
       // 返回token
+      const payload = { id: user.id, name: user.name, avatar: user.avatar };
+      const token = jwt.sign(payload, keys.secretOrkey, { expiresIn: 3600 });
+
       ctx.status = 200;
-      ctx.body = { success: true };
+      ctx.body = { success: true, token: 'Bearer ' + token };
     } else {
       ctx.status = 400;
       ctx.body = { password: '密码错误!' };
