@@ -6,13 +6,16 @@ const mongoose = require('mongoose');
 const app = new Koa();
 const router = new Router();
 
+// 引入users.js
+const users = require('./routes/api/users');
+
 // 路由
 router.get('/', async (ctx) => {
   ctx.body = { msg: 'Hello Koa Interfaces' };
 });
 
 // config
-const db = require('./config/keys.js').mongoURI;
+const db = require('./config/keys').mongoURI;
 
 // 连接数据库
 mongoose
@@ -23,6 +26,9 @@ mongoose
   .catch(err => {
     console.log(err);
   })
+
+// 配置路由地址 localhist:5000/api/users
+router.use('/api/users', users);
 
 // 配置路由
 app.use(router.routes()).use(router.allowedMethods());
