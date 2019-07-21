@@ -5,6 +5,7 @@ const gravatar = require('gravatar');
 const tools = require('../../config/tools');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
+const passport = require('koa-passport');
 
 // 引入User
 const User = require('../../models/User');
@@ -88,5 +89,23 @@ router.post('/login', async ctx => {
     }
   }
 })
+
+/**
+ * @route GET api/users/current
+ * @desc  用户信息接口地址 返回用户信息
+ * @access 接口是私密的
+ */
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  async ctx => {
+    ctx.body = {
+      id: ctx.state.user.id,
+      name: ctx.state.user.name,
+      email: ctx.state.user.email,
+      avatar: ctx.state.user.avatar
+    };
+  }
+);
 
 module.exports = router.routes();
