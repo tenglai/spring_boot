@@ -5,13 +5,14 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "nodemon": "nodemon app.js"
+    "server": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.7.0",
-    "koa-router": "^7.4.0"
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.3.14"
   }
 }
