@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const router = new Router();
+const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const tools = require('../../config/tools');
 
@@ -51,5 +52,36 @@ router.post('/register', async ctx => {
     ctx.body = newUser;
   }
 });
+
+/**
+ * @route POST api/users/login
+ * @desc 登录接口地址
+ * @access 接口是公开的
+ */
+router.post('/login', async ctx => {
+  // 查询
+  const findResult = await User.find({ email: ctx.request.body.email });
+  const user = findResult[0];
+  const password = ctx.request.body.password;
+
+  // 判断差没查到
+  if (findResult.length == 0) {
+    ctx.status = 404;
+    ctx.body = { email: '用户不存在!' };
+  } else {
+    // 查到后 验证密码
+    var result = await bcrypt.compareSync(password, user.password);
+
+    // 校验通过
+    if (result) {
+      // 返回token
+      ctx.status = 200;
+      ctx.body = { success: true };
+    } else {
+      ctx.status = 400;
+      ctx.body = { password: '密码错误!' };
+    }
+  }
+})
 
 module.exports = router.routes();
