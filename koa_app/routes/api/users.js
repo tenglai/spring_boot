@@ -10,6 +10,9 @@ const passport = require('koa-passport');
 // 引入User
 const User = require('../../models/User');
 
+// 引入 input 验证密码
+const validateRegisterInput = require('../../validation/register');
+
 /**
  * @route GET api/users/test
  * @desc 测试接口地址
@@ -27,6 +30,14 @@ router.get('/test', async ctx => {
  */
 router.post('/register', async ctx => {
   // console.log(ctx.request.body);
+  const { errors, isValid } = validateRegisterInput(ctx.request.body);
+
+  // 判断是否验证通过
+  if (!isValid) {
+    ctx.status = 400;
+    ctx.body = errors;
+    return;
+  }
 
   // 通过邮箱判读是否注册过
   const findResult = await User.find({ email: ctx.request.body.email });
