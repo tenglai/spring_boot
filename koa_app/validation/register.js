@@ -38,7 +38,7 @@ module.exports = function validateRegisterInput(data) {
   }
 
   if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'password2不能为空';
+    errors.password2 = '两次密码不一致';
   }
 
   return {
