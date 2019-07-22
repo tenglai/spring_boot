@@ -12,6 +12,7 @@ const User = require('../../models/User');
 
 // 引入 input 验证密码
 const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 /**
  * @route GET api/users/test
@@ -73,6 +74,15 @@ router.post('/register', async ctx => {
  * @access 接口是公开的
  */
 router.post('/login', async ctx => {
+  const { errors, isValid } = validateLoginInput(ctx.request.body);
+
+  // 判断是否验证通过
+  if (!isValid) {
+    ctx.status = 400;
+    ctx.body = errors;
+    return;
+  }
+
   // 查询
   const findResult = await User.find({ email: ctx.request.body.email });
   const user = findResult[0];
