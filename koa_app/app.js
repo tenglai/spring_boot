@@ -12,6 +12,8 @@ app.use(bodyParser());
 
 // 引入users.js
 const users = require('./routes/api/users');
+// 引入messages.js
+const messages = require('./routes/api/messages');
 
 // 路由
 router.get('/', async (ctx) => {
@@ -40,6 +42,7 @@ require('./config/passport')(passport);
 
 // 配置路由地址 localhist:5000/api/users
 router.use('/api/users', users);
+router.use('/api/message', messages);
 
 // 配置路由
 app.use(router.routes()).use(router.allowedMethods());
