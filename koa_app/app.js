@@ -3,12 +3,22 @@ const Router = require('koa-router');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const passport = require('koa-passport');
+const cors = require('koa2-cors');
 
 // 实例化koa
 const app = new Koa();
 const router = new Router();
 
 app.use(bodyParser());
+
+// 允许跨域访问
+app.use(cors({
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization', 'Date'],
+  maxAge: 100,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Custom-Header', 'anonymous'],
+}));
 
 // 引入users.js
 const users = require('./routes/api/users');
