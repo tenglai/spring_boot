@@ -1,0 +1,52 @@
+{
+  "name": "data-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/lodash": "^4.14.132",
+    "@types/react": "^16.8.16",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-router-dom": "^4.3.3",
+    "antd-mobile": "^2.2.13",
+    "moment": "^2.24.0",
+    "rc-form": "^2.4.8",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.0",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "deploy": "react-app-rewired build --ftp",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "resolutions": {
+    "babel-jest": "24.7.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.11.0",
+    "cross-env": "^5.2.0",
+    "customize-cra": "^0.2.12",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "react-app-rewired": "^2.1.3"
+  }
+}
