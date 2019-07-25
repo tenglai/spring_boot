@@ -41,28 +41,28 @@ class LeaveMessage extends React.Component<IProps, IState> {
       <InputItem
         {...getFieldProps('user', {
           rules: [{ required: true }]
-        })}
+        }) }
         clear
         placeholder="请输入您的姓名"
       >姓名</InputItem>
       <InputItem
         {...getFieldProps('mobile', {
           rules: [{ required: true }]
-        })}
+        }) }
         clear
         placeholder="请输入您的联系方式"
       >联系方式</InputItem>
       <InputItem
         {...getFieldProps('mail', {
           rules: [{ required: true }]
-        })}
+        }) }
         clear
         placeholder="请输入您的邮箱"
       >邮箱</InputItem>
       <TextareaItem
         {...getFieldProps('message', {
           rules: [{ required: true }]
-        })}
+        }) }
         title="留言"
         placeholder="请输入您的留言"
         rows={5}
