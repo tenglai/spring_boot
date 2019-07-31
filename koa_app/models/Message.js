@@ -1,3 +1,6 @@
+/**
+ * 留言数据模型
+ */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -25,4 +28,4 @@ const MessageSchema = new Schema({
   }
 });
 
-module.exports = Message = mongoose.model('message', MessageSchema);
+module.exports = Message = mongoose.model('messages', MessageSchema);

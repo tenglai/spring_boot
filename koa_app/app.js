@@ -1,3 +1,4 @@
+// 引入模板
 const Koa = require('koa');
 const Router = require('koa-router');
 const mongoose = require('mongoose');
@@ -54,7 +55,7 @@ require('./config/passport')(passport);
 router.use('/api/users', users);
 router.use('/api/message', messages);
 
-// 配置路由
+// 启动路由
 app.use(router.routes()).use(router.allowedMethods());
 
 // 设置端口号
