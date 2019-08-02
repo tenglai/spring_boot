@@ -43,12 +43,12 @@ router.post('/register', async ctx => {
     return;
   }
 
-  // 通过邮箱判读是否注册过
+  // 通过手机号判读是否注册过
   const findResult = await User.find({ mobile: ctx.request.body.mobile });
   // console.log(findResult);
   if (findResult.length > 0) {
     ctx.status = 500;
-    ctx.body = { msg: '邮箱已被占用 ' };
+    ctx.body = { msg: '手机号已被注册' };
   } else {
     const avatar = gravatar.url(ctx.request.body.email, { s: '200', r: 'pg', d: 'mm' });
     const newUser = new User({
@@ -139,6 +139,38 @@ router.get(
       email: ctx.state.user.email,
       avatar: ctx.state.user.avatar
     };
+  }
+);
+
+/**
+ * @route POST api/users/update
+ * @desc  更新用户信息接口地址
+ * @access 接口是私密的
+ */
+router.post(
+  '/update',
+  passport.authenticate('jwt', { session: false }),
+  async ctx => {
+    await User.updateOne({ _id: ctx.state.user.id }, {
+      name: ctx.request.body.name,
+      mobile: ctx.request.body.mobile,
+      email: ctx.request.body.email,
+      avatar: ctx.request.body.avatar
+    })
+      .then(res => {
+        ctx.status = 200;
+        ctx.body = {
+          data: res,
+          msg: '更新信息成功'
+        }
+      })
+      .catch(err => {
+        ctx.status = 500;
+        ctx.body = {
+          data: err,
+          msg: '更新信息失败'
+        }
+      })
   }
 );
 
